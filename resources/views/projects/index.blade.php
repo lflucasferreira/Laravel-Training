@@ -4,9 +4,16 @@
 
 @section('content')
 
-    <h1>Projetos</h1>
+    <div class="row">
+        <h1>Projetos</h1>
+    </div>
 
     @foreach ($projects as $project)
-        <li>{{ $project->title }}</li>
+        <li>
+            <a href="/projects/{{ $project->id }}">
+                {{ $project->title }} (id: {{ $project->id }})
+            </a>
+        </li>
     @endforeach
+
 @endsection

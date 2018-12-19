@@ -6,12 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <title> @yield('title', 'Laracast') </title>
+    <style>
+        .container-margin-top {
+            margin-top: 20px !important;  
+        } 
+    </style>
 </head>
 <body>
-
-    <div class="container">   
+    <div class="container container-margin-top">   
         @yield('content')
     </div>
-
 </body>
 </html>

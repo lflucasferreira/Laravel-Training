@@ -1,23 +1,29 @@
 @extends('layout')
 
-@section('title', 'Projects - Edit')
+@section('title', 'Projetos - Editar')
 
 @section('content')
 
-    <h1>Edit Project</h1>
+    <h1>Editar Projeto</h1>
 
-    <form method="POST" action="/projects/{{ $project->id }}">
-        {{ method_field('PATCH') }}
-        {{ csrf_field() }}
+    <form action="/projects/{{ $project->id }}" method="post">
+        @method('PATCH')
+        @csrf
         <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" class="form-control" name="title" id="title" value="{{ $project->title }}">
+            <label for="title">Título</label>
+            <input type="text" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" name="title" id="title" value="{{ $project->title }}" required>
         </div>
-
         <div class="form-group">
-            <label for="description">Description</label>
-            <textarea class="form-control" name="description" id="description" rows="3">{{ $project->description }}</textarea>
+            <label for="description">Descrição</label>
+            <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description" rows="3" required>{{ $project->description }}</textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Update Project</button>
+        <button type="submit" class="btn btn-primary">Atualizar Projeto</button>
     </form>
+
+    <form action="/projects/{{ $project->id }}" method="post">
+        @method('DELETE')
+        @csrf
+        <button type="submit" class="btn btn-danger">Excluir Projeto</button>
+    </form>
+
 @endsection

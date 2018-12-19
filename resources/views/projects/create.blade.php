@@ -1,22 +1,32 @@
 @extends('layout')
 
-@section('title', 'Projects - Create')
+@section('title', 'Projetos - Criar')
 
 @section('content')
 
-    <h1>Projects Create</h1>
+    <h1>Criar Projeto</h1>
 
-    <form action="/projects" method="POST">
-        {{ csrf_field() }}
-        <div>
-            <input type="text" name="title" placeholder="Título do Projeto">
+    <form action="/projects" method="post">
+        @csrf
+        <div class="form-group">
+            <input autofocus class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" name="title" placeholder="Título do Projeto" type="text" value="{{ old('title') }}" required>
         </div>
-        <div>
-            <textarea name="description" placeholder="Descrição do Projeto"></textarea>
+        <div class="form-group">
+            <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" placeholder="Descrição do Projeto" rows="3" required>{{ old('description') }}</textarea>
         </div>
-        <div>
-            <button type="submit">Criar Projeto</button>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Criar Projeto</button>
         </div>
+
+        @if ($errors->any())
+            <div class="form-group alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
     </form>
 
 @endsection
