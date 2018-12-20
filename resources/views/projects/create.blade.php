@@ -18,15 +18,7 @@
             <button class="btn btn-primary" type="submit">Criar Projeto</button>
         </div>
 
-        @if ($errors->any())
-            <div class="form-group alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        @include('errors')
     </form>
 
 @endsection

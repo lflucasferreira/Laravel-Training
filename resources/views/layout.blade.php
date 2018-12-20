@@ -10,6 +10,10 @@
         .container-margin-top {
             margin-top: 20px !important;  
         } 
+
+        .is-complete {
+            text-decoration: line-through;
+        }
     </style>
 </head>
 <body>

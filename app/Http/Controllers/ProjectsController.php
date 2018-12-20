@@ -10,8 +10,13 @@ class ProjectsController extends Controller
 {
     public function index()
     {
-        $projects = Project::all();
-        return view('projects.index', compact('projects'));
+       $projects = Project::all();
+       return view('projects.index', compact('projects'));
+
+       /*
+       * It's possible to use just this line below 
+       * return view('projects.index')->with('projects', Project::all());
+       * */
     }
 
     public function show(Project $project)
