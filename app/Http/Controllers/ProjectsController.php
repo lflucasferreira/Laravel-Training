@@ -16,13 +16,8 @@ class ProjectsController extends Controller
 
     public function index()
     {
-       $projects = Project::where('owner_id', auth()->id())->get();
-       return view('projects.index', compact('projects'));
-
-       /*
-       * It's possible to use just this line below 
-       * return view('projects.index')->with('projects', Project::all());
-       * */
+        $projects = auth()->user()->projects;
+        return view('projects.index', compact('projects'));
     }
 
     public function show(Project $project)
@@ -38,15 +33,10 @@ class ProjectsController extends Controller
 
     public function store()
     {
-        $attributes = request()->validate([
-            'title' => ['required', 'min:3', 'max:255'],
-            'description' => ['required', 'min:3']
-        ]);
-
+        $attributes = $this->validateProject();
         $attributes['owner_id'] = auth()->id();
 
         $project = Project::create($attributes);
-
 
         \Mail::to('lucas@qualinfo.com.br')->send(
             new ProjectCreated($project)
@@ -62,10 +52,7 @@ class ProjectsController extends Controller
 
     public function update(Project $project)
     {
-        $project->update(request([
-            'title',
-            'description'
-        ]));
+        $project->update($this->validateProject());
         return redirect('projects');
     }
 
@@ -73,5 +60,13 @@ class ProjectsController extends Controller
     {
         $project->delete();
         return redirect('projects');
+    }
+
+    public function validateProject()
+    {
+        return request()->validate([
+            'title' => ['required', 'min:3', 'max:255'],
+            'description' => ['required', 'min:3']
+        ]);
     }
 }
