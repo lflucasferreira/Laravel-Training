@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Project;
-use App\Mail\ProjectCreated;
 
 class ProjectsController extends Controller
 {
@@ -28,20 +26,14 @@ class ProjectsController extends Controller
 
     public function create()
     {
-        return view ('projects.create');
+        return view('projects.create');
     }
 
     public function store()
     {
         $attributes = $this->validateProject();
         $attributes['owner_id'] = auth()->id();
-
         $project = Project::create($attributes);
-
-        \Mail::to('lucas@qualinfo.com.br')->send(
-            new ProjectCreated($project)
-        );
-
         return redirect('projects');
     }
 

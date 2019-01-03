@@ -4,6 +4,7 @@
 /storage/*.key
 /vendor
 .env
+.vscode/launch.json
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
